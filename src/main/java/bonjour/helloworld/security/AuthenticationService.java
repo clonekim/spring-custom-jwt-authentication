@@ -37,21 +37,27 @@ public class AuthenticationService {
 
     public Authentication getAuthentication(String token) {
 
+        log.debug("Token => {}", token);
         if (token == null)
             return null;
 
-        String user = Jwts.parser()
-                .setSigningKey(authenticationProperties.getJwt().getSecret())
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+        try {
+            String user = Jwts.parser()
+                    .setSigningKey(authenticationProperties.getJwt().getSecret())
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
 
-        log.debug("To Authentication => {}", user);
-        return new UsernamePasswordAuthenticationToken(
-                user,
-                null,
-                Collections.arrayToList(new SimpleGrantedAuthority[]{ authenticationProperties.getAuthority() }));
+            log.debug("To Authentication => {}", user);
+            return new UsernamePasswordAuthenticationToken(
+                    user,
+                    null,
+                    Collections.arrayToList(new SimpleGrantedAuthority[]{authenticationProperties.getAuthority()}));
 
+        }catch (Exception e){
+            e.printStackTrace();
+            throw e;
+        }
     }
 
 }

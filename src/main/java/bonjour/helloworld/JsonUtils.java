@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.Writer;
 
 public final class JsonUtils {
-    
+
 
     public static <T> T toObject(InputStream in, Class<T> clazz) {
         try {

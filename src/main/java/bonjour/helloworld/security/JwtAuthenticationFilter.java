@@ -1,6 +1,5 @@
 package bonjour.helloworld.security;
 
-import bonjour.helloworld.security.AuthenticationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,17 +34,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 });
 
         if(token.isPresent()) {
-            log.debug("Token ==> {}", token.get());
+            log.debug("Token => {}", token.get());
             try {
                 Optional.ofNullable(authenticationService.getAuthentication(token.get()))
                         .ifPresent(authentication -> {
-
                             ((UsernamePasswordAuthenticationToken) authentication).setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                             SecurityContextHolder.getContext().setAuthentication(authentication);
                         });
             }catch (Exception e){
-               // e.printStackTrace();
-                SecurityContextHolder.clearContext();
+               SecurityContextHolder.clearContext();
+               throw e;
             }
 
         }

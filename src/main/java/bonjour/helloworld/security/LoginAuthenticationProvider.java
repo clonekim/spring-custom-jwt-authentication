@@ -30,7 +30,7 @@ public class LoginAuthenticationProvider implements AuthenticationProvider {
                     new ArrayList<>());
 
         } else {
-            throw new UsernameNotFoundException(String.format("Invalid username(%s)", username));
+            throw new UsernameNotFoundException(String.format("Invalid username (%s)", username));
         }
     }
 

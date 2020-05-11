@@ -9,5 +9,9 @@ spring:
     login: /api/token,POST
     authority: ROLE_USER
     jwt:
-      ttl: 1m
+      ttl: 1h
       secret: secret!@#z?_43
+
+server:
+  error:
+    include-stacktrace: never
