@@ -1,0 +1,13 @@
+logging:
+  level:
+    bonjour.helloworld: debug
+    org.springframework:
+      security: debug
+
+spring:
+  custom:
+    login: /api/token,POST
+    authority: ROLE_USER
+    jwt:
+      ttl: 1m
+      secret: secret!@#z?_43
